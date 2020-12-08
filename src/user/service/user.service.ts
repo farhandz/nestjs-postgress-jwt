@@ -61,13 +61,14 @@ export class UserService {
     delete user.email;
     delete user.password;
     delete user.role;
-    return from(this.userRepository.update(id, user));
+    return from(this.userRepository.update(id, user)).pipe(
+      switchMap(() => this.findone(id)),
+    );
   }
 
   findone(id: number): Observable<User> {
     return from(this.userRepository.findOne({ id })).pipe(
       map((user: User) => {
-        console.log(user);
         const { password, ...result } = user;
         return result;
       }),
