@@ -29,7 +29,7 @@ export class UserService {
         newUser.username = user.username;
         newUser.email = user.email;
         newUser.password = passwordhasHash;
-        newUser.role = UserRole.USER;
+        newUser.role = user.role;
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
             const { password, ...result } = user;
@@ -134,6 +134,7 @@ export class UserService {
         take: options.limit || 10,
         order: { id: 'ASC' },
         select: ['id', 'name', 'username', 'email', 'role'],
+        relations: ['blogEntries'],
         where: [{ username: Like(`%${user.username}%`) }],
       }),
     ).pipe(

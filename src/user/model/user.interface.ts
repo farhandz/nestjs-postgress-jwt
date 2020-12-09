@@ -1,12 +1,6 @@
-export enum UserRole {
-  ADMIN = 'admin',
-  EDITOR = 'editor',
-  CHIEFEDITOR = 'chiefeditor',
-  USER = 'user',
-}
+import { BlogEntryEntity } from 'src/blog/model/blog-entity.entity';
 
 export interface User {
-  [x: string]: any;
   id?: number;
   name?: string;
   username?: string;
@@ -14,4 +8,12 @@ export interface User {
   password?: string;
   role?: UserRole;
   profileImage?: string;
+  blogEntries?: BlogEntryEntity[];
+}
+
+export enum UserRole {
+  ADMIN = 'admin',
+  CHIEFEDITOR = 'chiefeditor',
+  EDITOR = 'editor',
+  USER = 'user',
 }
